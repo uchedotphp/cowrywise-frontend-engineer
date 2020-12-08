@@ -23,3 +23,22 @@ body {
 header {
   background: #dde2e9;
 }
+
+main {
+  max-width: 1536px;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 768px) {
+  main {
+    margin-top: 2em;
+  }
+}
+
+/* Medium devices and desktops (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  main {
+    margin: -4em auto;
+    padding: 0 6.7em;
+  }
+}
