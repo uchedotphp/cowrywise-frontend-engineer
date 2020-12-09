@@ -1,7 +1,7 @@
 <template>
   <main class="container">
     <div class="box">
-      <PhotoCards v-for="n in 9" :key="n" />
+      <PhotoCards v-for="n in 1" :key="n" />
     </div>
   </main>
 </template>
@@ -32,7 +32,8 @@ export default {
   .container {
     .box {
       display: grid;
-      grid-template-columns: auto auto auto;
+      // grid-template-columns: auto auto auto;
+      grid-template-columns: 400px 400px 400px;
       grid-gap: 40px 80px;
       justify-content: space-between;
     }

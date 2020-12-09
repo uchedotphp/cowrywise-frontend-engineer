@@ -1,18 +1,48 @@
 <template>
-  <a href="#" class="photo-container">
-    <img src="./../assets/images/babe.jpg" alt="" srcset="" />
-    <div class="overlay">
-      <div class="author">
-        <p>Nwulu Uchechukwu</p>
-        <small>Lagos, Nigeria</small>
+  <div>
+    <div @click="openModal" class="photo-container">
+      <img src="./../assets/images/babe.jpg" alt="" srcset="" />
+      <div class="overlay">
+        <div class="author">
+          <p>Nwulu Uchechukwu</p>
+          <small>Lagos, Nigeria</small>
+        </div>
       </div>
     </div>
-  </a>
+
+    <!-- modal -->
+    <div v-show="modal" class="modal">
+      <!-- Modal content -->
+      <span class="modal-content">
+        <span @click="closeModal" class="close">&times;</span>
+
+        <img src="./../assets/images/babe.jpg" alt="" srcset="" />
+        <span class="modal-author">
+          <p>Nwulu Uchechukwu</p>
+          <small>Lagos, Nigeria</small>
+        </span>
+      </span>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
   name: "PhotoCardsComponent",
+  data() {
+    return {
+      modal: false,
+    };
+  },
+  methods: {
+    openModal() {
+      this.modal = true;
+    },
+
+    closeModal() {
+      this.modal = false;
+    },
+  },
 };
 </script>
 
@@ -63,6 +93,104 @@ export default {
       }
     }
   }
+
+  // modal
+  /* The Modal (background) */
+  .modal {
+    display: flex;
+    position: fixed;
+    z-index: 1;
+    padding: 2% 1em;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    // overflow: auto;
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+
+    /* Modal Content */
+    .modal-content {
+      position: relative;
+      background-color: #fff;
+      margin: auto;
+      padding: 0;
+      border-radius: 1em;
+      max-width: 1536px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      -webkit-animation-name: animatetop;
+      -webkit-animation-duration: 0.4s;
+      animation-name: animatetop;
+      animation-duration: 0.4s;
+
+      img {
+        height: auto;
+        width: 85vw;
+        // object-fit: contain;
+        display: block;
+        border-radius: 1em 1em 0 0;
+      }
+
+      /* The Close Button */
+      .close {
+        position: absolute;
+        right: -1em;
+        top: -1em;
+        color: white;
+        font-size: 2em;
+        font-weight: bold;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .modal-author {
+        display: block;
+        border-radius: 0 0 1em 1em;
+        text-transform: capitalize;
+        padding: 3em;
+        p {
+          font-size: 1.5em;
+          cursor: pointer;
+          padding-bottom: 0.5em;
+        }
+
+        small {
+          font-size: 0.9em;
+          color: rgb(85, 81, 81);
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  /* Add Animation */
+  @-webkit-keyframes animatetop {
+    from {
+      top: -300px;
+      opacity: 0;
+    }
+    to {
+      top: 0;
+      opacity: 1;
+    }
+  }
+
+  @keyframes animatetop {
+    from {
+      top: -300px;
+      opacity: 0;
+    }
+    to {
+      top: 0;
+      opacity: 1;
+    }
+  }
 }
 
 /* Medium devices and desktops (landscape tablets, 768px and up) */
@@ -111,6 +239,104 @@ export default {
           cursor: pointer;
         }
       }
+    }
+  }
+
+  // modal
+  /* The Modal (background) */
+  .modal {
+    display: flex;
+    position: fixed;
+    z-index: 1;
+    padding-top: 2%;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+
+    /* Modal Content */
+    .modal-content {
+      position: relative;
+      background-color: #fff;
+      margin: auto;
+      padding: 0;
+      border-radius: 1em;
+      max-width: 1536px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      -webkit-animation-name: animatetop;
+      -webkit-animation-duration: 0.4s;
+      animation-name: animatetop;
+      animation-duration: 0.4s;
+
+      img {
+        height: 65vh;
+        object-fit: contain;
+        background: red;
+        display: block;
+        border-radius: 1em 1em 0 0;
+      }
+
+      /* The Close Button */
+      .close {
+        position: absolute;
+        right: -2em;
+        top: -1em;
+        color: white;
+        font-size: 2em;
+        font-weight: bold;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .modal-author {
+        display: block;
+        border-radius: 0 0 1em 1em;
+        text-transform: capitalize;
+        background: #fff;
+        padding: 3em;
+        p {
+          font-size: 1.5em;
+          cursor: pointer;
+          padding-bottom: 0.5em;
+        }
+
+        small {
+          font-size: 0.9em;
+          color: rgb(85, 81, 81);
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  /* Add Animation */
+  @-webkit-keyframes animatetop {
+    from {
+      top: -300px;
+      opacity: 0;
+    }
+    to {
+      top: 0;
+      opacity: 1;
+    }
+  }
+
+  @keyframes animatetop {
+    from {
+      top: -300px;
+      opacity: 0;
+    }
+    to {
+      top: 0;
+      opacity: 1;
     }
   }
 }

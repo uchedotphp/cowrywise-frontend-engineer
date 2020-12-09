@@ -43,7 +43,7 @@
     <div class="searched-result" v-else>
       <p>
         Search Results for
-        <span>"fun"</span>
+        <span>"{{ searchInput }}"</span>
       </p>
       <button>
         <svg
@@ -91,7 +91,6 @@ export default {
   },
   methods: {
     searcher() {
-      console.log("the length", this.searchInput.length);
       if (this.searchInput.length < 1) {
         alert("Abeg input something");
       } else {
@@ -99,6 +98,10 @@ export default {
         return this.searchInput;
       }
     },
+
+    // clearSearchedResult() {
+
+    // }
   }
 };
 </script>
