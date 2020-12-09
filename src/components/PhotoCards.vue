@@ -8,11 +8,6 @@
       </div>
     </div>
   </a>
-  <!-- <div class="card">
-    <div class="profilePic"></div>
-    <div class="comment animate"></div>
-    <div class="comment animate w80"></div>
-  </div> -->
 </template>
 
 <script>
@@ -117,61 +112,6 @@ export default {
         }
       }
     }
-  }
-}
-
-// Loading styles
-.w80 {
-  width: 80%;
-}
-
-.card {
-  border: 2px solid #fff;
-  box-shadow: 0px 0px 10px 0 #a9a9a9;
-  padding: 1em 4em;
-  min-height: 25em;
-  border-radius: 1em;
-  // width: 50px;
-  // width: 80%;
-  // margin: 50px auto;
-  background: #fff;
-}
-
-.profilePic {
-  height: 65px;
-  width: 65px;
-  border-radius: 50%;
-}
-
-.comment {
-  height: 10px;
-  background: #777;
-  margin-top: 20px;
-}
-
-// .wrapper {
-//   width: 0px;
-//   animation: fullView 0.5s forwards linear;
-// }
-
-@keyframes fullView {
-  100% {
-    width: 100%;
-  }
-}
-
-.animate {
-  animation: shimmer 2s infinite;
-  background: linear-gradient(to right, #eff1f3 4%, #e2e2e2 25%, #eff1f3 36%);
-  background-size: 1000px 100%;
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: -1000px 0;
-  }
-  100% {
-    background-position: 1000px 0;
   }
 }
 </style>

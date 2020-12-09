@@ -1,7 +1,12 @@
 <template>
   <header class="container">
-    <div class="box-input">
-      <input type="text" :placeholder="placeHolder" />
+    <div class="box-input" v-if="searchStatus == 'empty'">
+      <input
+        type="text"
+        v-model="searchInput"
+        v-on:keyup.enter="searcher"
+        :placeholder="placeHolder"
+      />
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="ionicon"
@@ -25,6 +30,47 @@
         />
       </svg>
     </div>
+
+    <!-- Searching Results -->
+    <div class="searching" v-else-if="searchStatus == 'fetching'">
+      <p>
+        Searching for <span>"{{ searchInput }}"</span>
+      </p>
+    </div>
+    <!-- end of Searchin Result -->
+
+    <!-- Searched Result -->
+    <div class="searched-result" v-else>
+      <p>
+        Search Results for
+        <span>"fun"</span>
+      </p>
+      <button>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="ionicon"
+          viewBox="0 0 512 512"
+        >
+          <title>Close Circle</title>
+          <path
+            d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z"
+            fill="none"
+            stroke="currentColor"
+            stroke-miterlimit="10"
+            stroke-width="32"
+          />
+          <path
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="32"
+            d="M320 320L192 192M192 320l128-128"
+          />
+        </svg>
+      </button>
+    </div>
+    <!-- end of Searched Result -->
   </header>
 </template>
 
@@ -36,6 +82,23 @@ export default {
       type: String,
       default: "Search for photo"
     }
+  },
+  data() {
+    return {
+      searchStatus: "empty",
+      searchInput: ""
+    };
+  },
+  methods: {
+    searcher() {
+      console.log("the length", this.searchInput.length);
+      if (this.searchInput.length < 1) {
+        alert("Abeg input something");
+      } else {
+        this.searchStatus = "fetching";
+        return this.searchInput;
+      }
+    },
   }
 };
 </script>
@@ -76,6 +139,58 @@ export default {
         height: 1.5em;
       }
     }
+
+    // searching
+    .searching {
+      margin: auto;
+      max-width: 1536px;
+      font-size: 2em;
+
+      p {
+        color: #293b5b;
+        font-weight: bold;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        span {
+          color: #6d7b91;
+        }
+      }
+    }
+
+    // searched-result
+    .searched-result {
+      margin: auto;
+      max-width: 1536px;
+      // background: red;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 2em;
+
+      p {
+        color: #293b5b;
+        font-weight: bold;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        span {
+          color: #6d7b91;
+        }
+      }
+      button {
+        border: none;
+
+        &:focus {
+          outline: none;
+        }
+        svg {
+          height: 2em;
+        }
+      }
+    }
   }
 }
 
@@ -112,6 +227,59 @@ export default {
         top: 1.9em;
         left: 2em;
         height: 1.5em;
+      }
+    }
+
+    // searching
+    .searching {
+      margin: auto;
+      max-width: 1536px;
+      font-size: 2em;
+
+      p {
+        color: #293b5b;
+        font-weight: bold;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        span {
+          color: #6d7b91;
+        }
+      }
+    }
+
+    // searched-result
+    .searched-result {
+      margin: auto;
+      max-width: 1536px;
+      // background: red;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 2em;
+
+      p {
+        color: #293b5b;
+        font-weight: bold;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        span {
+          color: #6d7b91;
+        }
+      }
+      button {
+        border: none;
+        background: transparent;
+
+        &:focus {
+          outline: none;
+        }
+        svg {
+          height: 2em;
+        }
       }
     }
   }
