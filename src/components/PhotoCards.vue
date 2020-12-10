@@ -1,13 +1,22 @@
 <template>
   <div>
-    <div @click="openModal" class="photo-container">
-      <img src="./../assets/images/babe.jpg" alt="" srcset="" />
-      <div class="overlay">
-        <div class="author">
-          <p>Nwulu Uchechukwu</p>
-          <small>Lagos, Nigeria</small>
+    <div class="box">
+      <span
+        v-for="photo in randomPhotos"
+        :key="photo.id"
+        @click="openModal(photo)"
+        class="photo-container"
+      >
+        <img :src="photo.urls.regular" :alt="photo.alt_description" srcset="" />
+        <div class="overlay">
+          <div class="author">
+            <p>{{ photo.user.first_name }} {{ photo.user.last_name }}</p>
+            <small>{{
+              photo.user.location ? photo.user.location : "Unknown Location"
+            }}</small>
+          </div>
         </div>
-      </div>
+      </span>
     </div>
 
     <!-- modal -->
@@ -16,10 +25,21 @@
       <span class="modal-content">
         <span @click="closeModal" class="close">&times;</span>
 
-        <img src="./../assets/images/babe.jpg" alt="" srcset="" />
+        <img
+          :src="zoomedPhoto.urls ? zoomedPhoto.urls.regular : ''"
+          alt=""
+          srcset=""
+        />
         <span class="modal-author">
-          <p>Nwulu Uchechukwu</p>
-          <small>Lagos, Nigeria</small>
+          <p>
+            {{ zoomedPhoto.user ? zoomedPhoto.user.first_name : "" }}
+            {{ zoomedPhoto.user ? zoomedPhoto.user.last_name : "" }}
+          </p>
+          <small>{{
+            zoomedPhoto.user && zoomedPhoto.user.location
+              ? zoomedPhoto.user.location
+              : "Unknown Location"
+          }}</small>
         </span>
       </span>
     </div>
@@ -27,16 +47,33 @@
 </template>
 
 <script>
+import { mapGetters, mapState } from "vuex";
 export default {
   name: "PhotoCardsComponent",
   data() {
     return {
       modal: false,
+      zoomedPhoto: {
+        user: null,
+        last_name: null,
+        urls: null,
+      },
     };
   },
+  created() {
+    this.$store.dispatch("setRandomPhotos");
+  },
+  computed: {
+    ...mapGetters(["getRandomPhotos"]),
+    ...mapState(["randomPhotos"]),
+  },
+  mounted() {
+    console.log("the resul", this.randomPhotos);
+  },
   methods: {
-    openModal() {
+    openModal(photo) {
       this.modal = true;
+      this.zoomedPhoto = photo;
     },
 
     closeModal() {
@@ -49,6 +86,11 @@ export default {
 <style lang="scss" scoped>
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 768px) {
+  .box {
+    display: grid;
+    grid-row-gap: 50px;
+  }
+
   .photo-container {
     overflow: hidden;
     position: relative;
@@ -195,13 +237,24 @@ export default {
 
 /* Medium devices and desktops (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
+  .box {
+    display: grid;
+    // grid-template-columns: repeat(3, auto);
+    grid-template-columns: repeat(3, 28.5714em);
+    // grid-gap: 2.5571em 5.1429em;
+    grid-gap: 40px 80px;
+    justify-content: space-between;
+  }
+
   .photo-container {
     overflow: hidden;
     position: relative;
+    display: inline-table; //check
     border-radius: 1em;
     color: #fff;
     cursor: zoom-in;
-    max-width: 28.5714;
+    // max-width: 28.5714;
+    height: auto;
 
     img {
       width: 100%;
