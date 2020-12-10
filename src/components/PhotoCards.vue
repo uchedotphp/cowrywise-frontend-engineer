@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from "vuex";
+import { mapState } from "vuex";
 export default {
   name: "PhotoCardsComponent",
   data() {
@@ -64,11 +64,7 @@ export default {
     this.$store.dispatch("setRandomPhotos");
   },
   computed: {
-    ...mapGetters(["getRandomPhotos"]),
-    ...mapState(["randomPhotos"]),
-  },
-  mounted() {
-    console.log("the resul", this.randomPhotos);
+    ...mapState(["randomPhotos"])
   },
   methods: {
     openModal(photo) {

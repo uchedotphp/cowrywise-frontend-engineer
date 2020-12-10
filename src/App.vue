@@ -1,17 +1,17 @@
 <template>
   <div id="app">
     <SearchBar />
-    <CardContainer />
+    <PhotoContainer />
   </div>
 </template>
 
 <script>
 import SearchBar from "@/components/SearchBar.vue";
-import CardContainer from "@/views/CardContainer.vue";
+import PhotoContainer from "@/views/PhotoContainer.vue";
 export default {
   components: {
     SearchBar,
-    CardContainer
+    PhotoContainer
   }
 };
 </script>
