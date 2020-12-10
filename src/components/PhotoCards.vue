@@ -2,17 +2,24 @@
   <div>
     <div class="box">
       <span
-        v-for="photo in randomPhotos"
+        v-for="photo in photos"
         :key="photo.id"
         @click="openModal(photo)"
         class="photo-container"
       >
-        <img :src="photo.urls.regular" :alt="photo.alt_description" srcset="" />
+        <img
+          :src="photo.urls ? photo.urls.regular : ''"
+          :alt="photo.alt_description"
+          srcset=""
+        />
         <div class="overlay">
           <div class="author">
-            <p>{{ photo.user.first_name }} {{ photo.user.last_name }}</p>
+            <p>
+              {{ photo.user ? photo.user.first_name : "" }}
+              {{ photo.user ? photo.user.last_name : "" }}
+            </p>
             <small>{{
-              photo.user.location ? photo.user.location : "Unknown Location"
+              photo.user && photo.user.location ? photo.user.location : ""
             }}</small>
           </div>
         </div>
@@ -31,15 +38,34 @@
           srcset=""
         />
         <span class="modal-author">
-          <p>
-            {{ zoomedPhoto.user ? zoomedPhoto.user.first_name : "" }}
-            {{ zoomedPhoto.user ? zoomedPhoto.user.last_name : "" }}
-          </p>
-          <small>{{
-            zoomedPhoto.user && zoomedPhoto.user.location
-              ? zoomedPhoto.user.location
-              : "Unknown Location"
-          }}</small>
+          <div>
+            <p>
+              {{ zoomedPhoto.user ? zoomedPhoto.user.first_name : "" }}
+              {{ zoomedPhoto.user ? zoomedPhoto.user.last_name : "" }}
+            </p>
+            <small>{{
+              zoomedPhoto.user && zoomedPhoto.user.location
+                ? zoomedPhoto.user.location
+                : ""
+            }}</small>
+          </div>
+          <button @click="download">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="ionicon"
+              viewBox="0 0 512 512"
+            >
+              <title>Arrow Down</title>
+              <path
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="48"
+                d="M112 268l144 144 144-144M256 392V100"
+              />
+            </svg>
+          </button>
         </span>
       </span>
     </div>
@@ -61,10 +87,13 @@ export default {
     };
   },
   created() {
-    this.$store.dispatch("setRandomPhotos");
+    this.$store.dispatch("getRandomPhotos");
+  },
+  mounted() {
+    console.log("what came in", this.photos);
   },
   computed: {
-    ...mapState(["randomPhotos"])
+    ...mapState(["photos"])
   },
   methods: {
     openModal(photo) {
@@ -75,6 +104,10 @@ export default {
     closeModal() {
       this.modal = false;
     },
+
+    download(){
+
+    }
   },
 };
 </script>
@@ -188,7 +221,9 @@ export default {
       }
 
       .modal-author {
-        display: block;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
         border-radius: 0 0 1em 1em;
         text-transform: capitalize;
         padding: 3em;
@@ -202,6 +237,24 @@ export default {
           font-size: 0.9em;
           color: rgb(85, 81, 81);
           cursor: pointer;
+        }
+
+        button {
+          background: hsla(0,0%,100%,.9);
+          padding: .5em .7em;
+          border-radius: .3em;
+          border: 1px solid green;
+          box-shadow: 0 1px 2px rgba(0,0,0,.06);
+          &:hover {
+            cursor: pointer;
+          }
+          svg {
+            height: 1.5em;
+            color: #767676;
+            &:hover {
+              color: green;
+            }
+          }
         }
       }
     }
@@ -346,7 +399,9 @@ export default {
         cursor: pointer;
       }
       .modal-author {
-        display: block;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
         border-radius: 0 0 1em 1em;
         text-transform: capitalize;
         background: #fff;
@@ -361,6 +416,24 @@ export default {
           font-size: 0.9em;
           color: rgb(85, 81, 81);
           cursor: pointer;
+        }
+
+        button {
+          background: hsla(0,0%,100%,.9);
+          padding: .5em .7em;
+          border-radius: .3em;
+          border: 1px solid green;
+          box-shadow: 0 1px 2px rgba(0,0,0,.06);
+          &:hover {
+            cursor: pointer;
+          }
+          svg {
+            height: 1.5em;
+            color: #767676;
+            &:hover {
+              color: green;
+            }
+          }
         }
       }
     }

@@ -45,7 +45,7 @@
         Search Results for
         <span>"{{ searchInput }}"</span>
       </p>
-      <button>
+      <button @click="resetSearch">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="ionicon"
@@ -80,13 +80,13 @@ export default {
   props: {
     placeHolder: {
       type: String,
-      default: "Search for photo"
-    }
+      default: "Search for photo",
+    },
   },
   data() {
     return {
       searchStatus: "empty",
-      searchInput: ""
+      searchInput: "",
     };
   },
   methods: {
@@ -95,14 +95,17 @@ export default {
         alert("Abeg input something");
       } else {
         this.searchStatus = "fetching";
-        return this.searchInput;
+        this.$store.dispatch("photoSearchResult", this.searchInput).then(() => {
+          this.searchStatus = "completed";
+        });
       }
     },
 
-    // clearSearchedResult() {
-
-    // }
-  }
+    resetSearch() {
+      this.searchStatus = "empty";
+      this.searchInput = "";
+    },
+  },
 };
 </script>
 

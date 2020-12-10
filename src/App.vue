@@ -12,7 +12,12 @@ export default {
   components: {
     SearchBar,
     PhotoContainer
-  }
+  },
+  data() {
+    return {
+      searchedPhoto: ""
+    };
+  },
 };
 </script>
 <style lang="scss">

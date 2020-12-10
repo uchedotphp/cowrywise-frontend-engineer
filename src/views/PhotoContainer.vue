@@ -1,6 +1,6 @@
 <template>
   <main class="photo-crib-container">
-    <PhotoCards />
+    <PhotoCards :searchedParam="searchedParam"/>
   </main>
 </template>
 
@@ -12,6 +12,9 @@ export default {
   components: {
     PhotoCards,
   },
+  props: {
+    searchedParam: String
+  }
 };
 </script>
 
