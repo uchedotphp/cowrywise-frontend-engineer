@@ -1,29 +1,39 @@
 <template>
   <div>
     <div class="box">
-      <span
-        v-for="photo in photos"
-        :key="photo.id"
-        @click="openModal(photo)"
-        class="photo-container"
-      >
-        <img
-          :src="photo.urls ? photo.urls.regular : ''"
-          :alt="photo.alt_description"
-          srcset=""
-        />
-        <div class="overlay">
-          <div class="author">
-            <p>
-              {{ photo.user ? photo.user.first_name : "" }}
-              {{ photo.user ? photo.user.last_name : "" }}
-            </p>
-            <small>{{
-              photo.user && photo.user.location ? photo.user.location : ""
-            }}</small>
+      <template v-if="photos.length > 0">
+        <span
+          v-for="photo in photos"
+          :key="photo.id"
+          @click="openModal(photo)"
+          class="photo-container"
+        >
+          <img
+            :src="photo.urls ? photo.urls.regular : ''"
+            :alt="photo.alt_description"
+            srcset=""
+          />
+          <div class="overlay">
+            <div class="author">
+              <p>
+                {{ photo.user ? photo.user.first_name : "" }}
+                {{ photo.user ? photo.user.last_name : "" }}
+              </p>
+              <small>{{
+                photo.user && photo.user.location ? photo.user.location : ""
+              }}</small>
+            </div>
           </div>
+        </span>
+      </template>
+
+      <!-- shimmer -->
+      <template v-else>
+        <div class="box-wrap" v-for="n in 10" :key="n">
+          <div class="box-in"></div>
+          <div class="box-in2"></div>
         </div>
-      </span>
+      </template>
     </div>
 
     <!-- modal -->
@@ -49,7 +59,10 @@
                 : ""
             }}</small>
           </div>
-          <button @click="download">
+          <a
+            href="https://unsplash.com/photos/51WKrfz6tLo/download"
+            @click.prevent
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="ionicon"
@@ -65,7 +78,7 @@
                 d="M112 268l144 144 144-144M256 392V100"
               />
             </svg>
-          </button>
+          </a>
         </span>
       </span>
     </div>
@@ -90,10 +103,10 @@ export default {
     this.$store.dispatch("getRandomPhotos");
   },
   mounted() {
-    console.log("what came in", this.photos);
+    // console.log("what came in", this.photos);
   },
   computed: {
-    ...mapState(["photos"])
+    ...mapState(["photos"]),
   },
   methods: {
     openModal(photo) {
@@ -105,9 +118,14 @@ export default {
       this.modal = false;
     },
 
-    download(){
-
-    }
+    download(link) {
+      console.log("the link", link);
+      return `${link.links.download}?force=true`;
+      // return this.$store.dispatch("photoDownload", link.id).then((response) => {
+      //   console.log("response on photocard side", response);
+      //   return response
+      // });
+    },
   },
 };
 </script>
@@ -239,12 +257,12 @@ export default {
           cursor: pointer;
         }
 
-        button {
-          background: hsla(0,0%,100%,.9);
-          padding: .5em .7em;
-          border-radius: .3em;
+        a {
+          background: hsla(0, 0%, 100%, 0.9);
+          padding: 0.5em 0.7em;
+          border-radius: 0.3em;
           border: 1px solid green;
-          box-shadow: 0 1px 2px rgba(0,0,0,.06);
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
           &:hover {
             cursor: pointer;
           }
@@ -286,19 +304,29 @@ export default {
 
 /* Medium devices and desktops (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
+  .box-wrap {
+    border-radius: 1em;
+  }
+
   .box {
     display: grid;
+    grid-auto-flow: dense;
     // grid-template-columns: repeat(3, auto);
-    grid-template-columns: repeat(3, 28.5714em);
+    // grid-template-columns: repeat(3, 28.5714em);
     // grid-gap: 2.5571em 5.1429em;
-    grid-gap: 40px 80px;
-    justify-content: space-between;
+    // grid-gap: 40px 80px;
+    // justify-content: space-between;
+
+    grid-column-gap: 80px;
+    grid-row-gap: 40px;
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .photo-container {
     overflow: hidden;
     position: relative;
     display: inline-table; //check
+    // display: block;
     border-radius: 1em;
     color: #fff;
     cursor: zoom-in;
@@ -418,12 +446,12 @@ export default {
           cursor: pointer;
         }
 
-        button {
-          background: hsla(0,0%,100%,.9);
-          padding: .5em .7em;
-          border-radius: .3em;
+        a {
+          background: hsla(0, 0%, 100%, 0.9);
+          padding: 0.5em 0.7em;
+          border-radius: 0.3em;
           border: 1px solid green;
-          box-shadow: 0 1px 2px rgba(0,0,0,.06);
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
           &:hover {
             cursor: pointer;
           }
@@ -459,6 +487,67 @@ export default {
     to {
       top: 0;
       opacity: 1;
+    }
+  }
+}
+
+// shimmer styles
+.box-wrap {
+  height: 31em;
+  padding: 1.4286em;
+  border: 1px solid #ddd;
+  background: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  .box-in {
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: skeletonshimmer;
+    animation-timing-function: linear;
+    width: 50%;
+    height: 10px;
+    position: relative;
+    background: #d8d8d8;
+    background-image: linear-gradient(
+      to right,
+      #d8d8d8 0%,
+      #bdbdbd 20%,
+      #d8d8d8 40%,
+      #d8d8d8 100%
+    );
+    background-repeat: no-repeat;
+  }
+
+  .box-in2 {
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: skeletonshimmer;
+    animation-timing-function: linear;
+    width: 30%;
+    margin-top: 1em;
+    height: 10px;
+    position: relative;
+    background: #d8d8d8;
+    background-image: linear-gradient(
+      to right,
+      #d8d8d8 0%,
+      #bdbdbd 20%,
+      #d8d8d8 40%,
+      #d8d8d8 100%
+    );
+    background-repeat: no-repeat;
+  }
+
+  @keyframes skeletonshimmer {
+    0% {
+      background-position: -33.4286em 0;
+    }
+    100% {
+      background-position: 33.4286em 0;
     }
   }
 }
