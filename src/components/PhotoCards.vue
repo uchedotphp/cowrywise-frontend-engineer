@@ -3,10 +3,10 @@
     <div class="box">
       <template v-if="photos.length > 0">
         <span
-          v-for="photo in photos"
+          v-for="(photo, index) in photos"
           :key="photo.id"
           @click="openModal(photo)"
-          class="photo-container"
+          :class="['photo-container', 'item-' + index]"
         >
           <img
             :src="photo.urls ? photo.urls.regular : ''"
@@ -317,9 +317,11 @@ export default {
     // grid-gap: 40px 80px;
     // justify-content: space-between;
 
-    grid-column-gap: 80px;
+    grid-column-gap: 70px;
     grid-row-gap: 40px;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, 28.5em);
+    // grid-template-columns: repeat(3, 1fr);
+    // padding: 25px;
   }
 
   .photo-container {
