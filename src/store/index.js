@@ -46,8 +46,9 @@ export default new Vuex.Store({
 
     photoSearchResult({ commit }, payload) {
       return Services.searchPhotos(payload)
-        .then(({ data }) => {
-          commit("SET_PHOTO_SEARCH", data.results);
+        .then((response) => {
+          console.log('result', response);
+          commit("SET_PHOTO_SEARCH", response.data.results);
         })
         .catch(function(error) {
           if (error.response) {
@@ -98,6 +99,6 @@ export default new Vuex.Store({
   },
 
   getters: {
-    getRandomPhotos: (state) => state.randomPhotos,
+    getRandomPhotos: (state) => state.photos,
   },
 });

@@ -1,22 +1,14 @@
 <template>
   <div id="app">
-    <SearchBar />
-    <PhotoContainer />
+    <Home />
   </div>
 </template>
 
 <script>
-import SearchBar from "@/components/SearchBar.vue";
-import PhotoContainer from "@/views/PhotoContainer.vue";
+import Home from "@/views/Home";
 export default {
   components: {
-    SearchBar,
-    PhotoContainer
-  },
-  data() {
-    return {
-      searchedPhoto: ""
-    };
+    Home,
   },
 };
 </script>
