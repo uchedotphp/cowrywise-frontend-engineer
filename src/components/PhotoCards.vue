@@ -155,8 +155,6 @@ export default {
 @media only screen and (max-width: 768px) {
   .box {
     display: grid;
-    // grid-row-gap: 50px;
-    // margin-bottom: 2em;
   }
 
   .grid-item {
