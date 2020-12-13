@@ -1,12 +1,17 @@
 <template>
   <div>
-    <div class="box">
+    <div class="box grid">
+      <!-- columns -->
+      <div class="grid-col grid-col--1"></div>
+      <div class="grid-col grid-col--2"></div>
+      <div class="grid-col grid-col--3"></div>
+
       <template v-if="photos.length > 0">
         <span
-          v-for="(photo, index) in photos"
+          v-for="photo in photos"
           :key="photo.id"
           @click="openModal(photo)"
-          :class="['photo-container', 'item-' + index]"
+          :class="['photo-container', 'grid-item']"
         >
           <img
             :src="photo.urls ? photo.urls.regular : ''"
@@ -104,6 +109,21 @@ export default {
   },
   mounted() {
     // console.log("what came in", this.photos);
+    this.$colcade.create({
+      name: "myGridName", // name of colcade instance -> will be used as a reference for grid instance
+      el: ".grid", // element that hosts the grid -> as mentioned in Colcade config
+      config: {
+        // native Colcade configuration -> as mentioned in Colcade config
+        columns: ".grid-col",
+        items: ".grid-item",
+      },
+    });
+  },
+  updated () {
+    this.$colcade.update('myGridName')
+  },
+  destroyed () {
+    this.$colcade.destroy('myGridName')
   },
   computed: {
     ...mapState(["photos"]),
@@ -135,10 +155,16 @@ export default {
 @media only screen and (max-width: 768px) {
   .box {
     display: grid;
-    grid-row-gap: 50px;
+    // grid-row-gap: 50px;
+    // margin-bottom: 2em;
+  }
+
+  .grid-item {
+    margin-bottom: 2.5571em;
   }
 
   .photo-container {
+    display: inline-table;
     overflow: hidden;
     position: relative;
     color: #fff;
@@ -308,26 +334,43 @@ export default {
     border-radius: 1em;
   }
 
-  .box {
-    display: grid;
-    grid-auto-flow: dense;
-    // grid-template-columns: repeat(3, auto);
-    // grid-template-columns: repeat(3, 28.5714em);
-    // grid-gap: 2.5571em 5.1429em;
-    // grid-gap: 40px 80px;
-    // justify-content: space-between;
+  .grid {
+    display: flex;
 
-    grid-column-gap: 70px;
-    grid-row-gap: 40px;
-    grid-template-columns: repeat(auto-fit, 28.5em);
-    // grid-template-columns: repeat(3, 1fr);
-    // padding: 25px;
+    .grid-col {
+      flex: 1;
+      padding: 0 1em;
+    }
+
+    span {
+
+      img {
+        width: 100%;
+      }
+    }
   }
+
+  // .box {
+  //   display: grid;
+  //   grid-auto-flow: dense;
+  //   // grid-template-columns: repeat(3, auto);
+  //   // grid-template-columns: repeat(3, 28.5714em);
+  //   // grid-gap: 2.5571em 5.1429em;
+  //   // grid-gap: 40px 80px;
+  //   // justify-content: space-between;
+
+  //   grid-column-gap: 70px;
+  //   grid-row-gap: 40px;
+  //   grid-template-columns: repeat(auto-fit, 28.5em);
+  //   // grid-template-columns: repeat(3, 1fr);
+  //   // padding: 25px;
+  // }
 
   .photo-container {
     overflow: hidden;
     position: relative;
     display: inline-table; //check
+    margin-bottom: 2.5571em;
     // display: block;
     border-radius: 1em;
     color: #fff;
