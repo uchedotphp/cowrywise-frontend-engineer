@@ -1,7 +1,12 @@
 <template>
-  <main class="photo-crib-container">
+  <transition-group
+    name="slide-fade"
+    tag="main"
+    class="photo-crib-container"
+    mode="out-in"
+  >
     <PhotoCard v-for="photo in photos" :key="photo.id" :photoDetails="photo" />
-  </main>
+  </transition-group>
 </template>
 
 <script>
@@ -14,7 +19,7 @@ export default {
   },
   data() {
     return {
-      networkStatus: false
+      networkStatus: false,
     };
   },
   created() {
@@ -31,7 +36,7 @@ export default {
     networkStatus(newValue) {
       if (newValue) {
         this.$router.push({
-          name: "NetworkError"
+          name: "NetworkError",
         });
       }
     },

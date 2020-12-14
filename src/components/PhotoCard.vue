@@ -1,32 +1,34 @@
 <template>
   <div>
-    <div v-if="photoDetails" :class="['photo-container']" @click="openModal()">
-      <img
-        :src="photoDetails.urls ? photoDetails.urls.regular : ''"
-        :alt="photoDetails.alt_description"
-        srcset=""
-      />
-      <div class="overlay">
-        <div class="author">
-          <p>
-            {{ photoDetails.user ? photoDetails.user.name : "" }}
-          </p>
-          <small>{{
-            photoDetails.user && photoDetails.user.location
-              ? photoDetails.user.location
-              : ""
-          }}</small>
+    <div v-if="photoDetails">
+      <div :class="['photo-container']" @click="openModal()">
+        <img
+          :src="photoDetails.urls ? photoDetails.urls.regular : ''"
+          :alt="photoDetails.alt_description"
+          srcset=""
+        />
+        <div class="overlay">
+          <div class="author">
+            <p>
+              {{ photoDetails.user ? photoDetails.user.name : "" }}
+            </p>
+            <small>{{
+              photoDetails.user && photoDetails.user.location
+                ? photoDetails.user.location
+                : ""
+            }}</small>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- shimmer -->
-    <template v-else>
+    <!-- <template v-else>
       <div class="box-wrap" v-for="n in 10" :key="n">
         <div class="box-in"></div>
         <div class="box-in2"></div>
       </div>
-    </template>
+    </template> -->
     <!-- end shimmer -->
 
     <!-- modal -->

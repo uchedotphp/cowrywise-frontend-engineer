@@ -1,16 +1,18 @@
 <template>
   <div id="app">
-    <SearchBar />
-    <router-view />
+    <Header />
+    <transition name="slide-fade" mode="out-in">
+      <router-view />
+    </transition>
   </div>
 </template>
 
 <script>
-import SearchBar from "@/components/SearchBar";
+import Header from "@/components/Header";
 export default {
   components: {
-    SearchBar
-  }
+    Header
+  },
 };
 </script>
 <style lang="scss">
