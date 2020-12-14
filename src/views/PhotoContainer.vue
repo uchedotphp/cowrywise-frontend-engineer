@@ -8,7 +8,7 @@
 import PhotoCard from "@/components/PhotoCard.vue";
 
 export default {
-  name: "CardContainer",
+  name: "PhotoContainer",
   components: {
     PhotoCard
   },

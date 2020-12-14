@@ -1,19 +1,25 @@
 <template>
   <div>
-    <SearchBar />
-    <Error />
+    <Error :resource="resource" />
   </div>
 </template>
 
 <script>
-import SearchBar from "@/components/SearchBar";
 import Error from "@/components/Error";
 export default {
   name: "NotFound",
+  mounted () {
+    console.log('the prop',this.resource);
+  },
   components: {
-    Error,
-    SearchBar
-  }
+    Error
+  },
+  props: {
+    resource: {
+      type: String,
+      required: true
+    },
+  },
 };
 </script>
 

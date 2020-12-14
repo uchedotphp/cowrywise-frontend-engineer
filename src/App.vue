@@ -1,15 +1,16 @@
 <template>
   <div id="app">
-    <Home />
+    <SearchBar />
+    <router-view />
   </div>
 </template>
 
 <script>
-import Home from "@/views/Home";
+import SearchBar from "@/components/SearchBar";
 export default {
   components: {
-    Home,
-  },
+    SearchBar
+  }
 };
 </script>
 <style lang="scss">

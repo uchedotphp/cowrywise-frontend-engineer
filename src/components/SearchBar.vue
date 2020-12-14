@@ -95,16 +95,29 @@ export default {
         alert("Abeg input something");
       } else {
         this.searchStatus = "fetching";
-        this.$store.dispatch("photoSearchResult", this.searchInput).then(() => {
-          this.searchStatus = "completed";
-        });
+        this.$store
+          .dispatch("photoSearchResult", this.searchInput)
+          .then((response) => {
+            this.searchStatus = "completed";
+            if (response == "Not Found") {
+              this.$router.push({
+                name: "404",
+                params: {
+                  resource: "photo",
+                },
+              });
+            }
+          });
       }
     },
 
     resetSearch() {
       this.searchStatus = "empty";
       this.searchInput = "";
-      location.reload();
+      // location.reload();
+      this.$router.push({
+        name: "Home"
+      });
     },
   },
 };

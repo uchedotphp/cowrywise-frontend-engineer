@@ -1,8 +1,10 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import VueRouter from "vue-router";
 import Services from "./../resources/services";
 
 Vue.use(Vuex);
+Vue.use(VueRouter);
 
 export default new Vuex.Store({
   state: {
@@ -47,11 +49,21 @@ export default new Vuex.Store({
     photoSearchResult({ commit }, payload) {
       return Services.searchPhotos(payload)
         .then((response) => {
-          console.log('result', response);
-          commit("SET_PHOTO_SEARCH", response.data.results);
+          console.log("result", response);
+          if (response.data.total) {
+            commit("SET_PHOTO_SEARCH", response.data.results);
+          } else {
+            return "Not Found";
+          }
         })
         .catch(function(error) {
           if (error.response) {
+            this.$router.push({
+              name: "404",
+              params: {
+                resource: "photo",
+              },
+            });
             // The request was made and the server responded with a status code
             // that falls out of the range of 2xx
             console.log(error.response.data);

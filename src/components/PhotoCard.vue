@@ -184,7 +184,7 @@ export default {
 @media only screen and (min-width: 768px) {
   .photo-container {
     position: relative;
-    background: red;
+    background: #fff;
     border-radius: 1em;
     overflow: hidden;
     display: inline-table;
