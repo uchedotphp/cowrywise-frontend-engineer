@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import NotFound from "../components/Error.vue";
+import NetworkError from "../components/NetworkError.vue";
 
 Vue.use(VueRouter);
 
@@ -12,20 +13,21 @@ const routes = [
     component: Home,
   },
   {
+    path: "/network-error",
+    name: "NetworkError",
+    component: NetworkError
+  },
+  {
     path: "/404",
     name: "404",
-    component: NotFound,
-    props: true,
-    params: {
-      resource: "page",
-    },
+    component: NotFound
   },
   {
     path: "*",
     redirect: {
       name: "404",
       params: {
-        resource: "page",
+        resource: "page"
       },
     },
   },

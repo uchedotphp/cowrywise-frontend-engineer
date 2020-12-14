@@ -10,16 +10,37 @@ import PhotoCard from "@/components/PhotoCard.vue";
 export default {
   name: "PhotoContainer",
   components: {
-    PhotoCard
+    PhotoCard,
+  },
+  data() {
+    return {
+      networkStatus: false
+    };
   },
   created() {
-    this.$store.dispatch("getRandomPhotos");
+    this.$store
+      .dispatch("getRandomPhotos")
+      .then(() => {
+        this.networkStatus = this.$store.state.networkError;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
+  watch: {
+    networkStatus(newValue) {
+      if (newValue) {
+        this.$router.push({
+          name: "NetworkError"
+        });
+      }
+    },
   },
   computed: {
     photos() {
       return this.$store.getters.getRandomPhotos;
-    }
-  }
+    },
+  },
 };
 </script>
 

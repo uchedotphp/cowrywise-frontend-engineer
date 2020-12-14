@@ -114,10 +114,10 @@ export default {
     resetSearch() {
       this.searchStatus = "empty";
       this.searchInput = "";
-      // location.reload();
-      this.$router.push({
-        name: "Home"
-      });
+      location.reload();
+      // this.$router.push({
+      //   name: "Home"
+      // });
     },
   },
 };
