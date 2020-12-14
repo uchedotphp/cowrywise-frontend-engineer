@@ -1,5 +1,6 @@
 <template>
   <transition-group
+    v-if="photos"
     name="slide-fade"
     tag="main"
     class="photo-crib-container"
@@ -7,15 +8,27 @@
   >
     <PhotoCard v-for="photo in photos" :key="photo.id" :photoDetails="photo" />
   </transition-group>
+
+  <transition-group
+    v-else
+    tag="main"
+    name="slide-fade"
+    class="photo-crib-container"
+    mode="out-in"
+  >
+    <LoadingShimmer v-for="n in 10" :key="n" />
+  </transition-group>
 </template>
 
 <script>
 import PhotoCard from "@/components/PhotoCard.vue";
+import LoadingShimmer from "@/components/LoadingShimmer.vue";
 
 export default {
   name: "PhotoContainer",
   components: {
     PhotoCard,
+    LoadingShimmer,
   },
   data() {
     return {
@@ -66,7 +79,8 @@ export default {
     grid-auto-flow: dense;
     grid-column-gap: 5em;
     grid-row-gap: 2.8571em;
-    grid-template-columns: repeat(auto-fit, 28.5em);
+    // grid-template-columns: repeat(auto-fit, 28.5em);
+    grid-template-columns: repeat(3, 28.5em);
     padding-bottom: 2em;
   }
 }

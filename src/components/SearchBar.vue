@@ -1,6 +1,6 @@
 <template>
   <div>
-    <transition name="slide-fade" mode="out-in">
+    <transition name="fade" mode="out-in">
       <div class="box-input" v-show="searchStatus == 'empty'">
         <input
           type="text"
@@ -34,7 +34,7 @@
     </transition>
 
     <!-- Searching Results -->
-    <transition name="slide-fade" mode="out-in">
+    <transition name="fade" mode="out-in">
       <div class="searching" v-show="searchStatus == 'fetching'">
         <p>
           Searching for <span>"{{ searchInput }}"</span>
@@ -44,7 +44,7 @@
     <!-- end of Searchin Result -->
 
     <!-- Searched Result -->
-    <transition name="slide-fade" mode="out-in">
+    <transition name="fade" mode="out-in">
       <div class="searched-result" v-show="searchStatus == 'completed'">
         <p>
           Search Results for

@@ -15,20 +15,23 @@ const routes = [
   {
     path: "/network-error",
     name: "NetworkError",
-    component: NetworkError
+    component: NetworkError,
   },
   {
     path: "/404",
     name: "404",
     component: NotFound,
-    props: true
+    props: true,
+    params: {
+      resource: "page",
+    },
   },
   {
     path: "*",
     redirect: {
       name: "404",
       params: {
-        resource: "page"
+        resource: "page",
       },
     },
   },

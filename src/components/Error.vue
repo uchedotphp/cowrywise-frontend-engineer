@@ -23,9 +23,13 @@
         d="M170.68 273.72L147.12 233a24 24 0 018.8-32.78l124.46-71.75a16 16 0 0121.89 5.86l31.57 54.59a16 16 0 01-5.84 21.84L203.51 282.5a24 24 0 01-32.83-8.78zM341.85 202.21l-46.51-80.43a24 24 0 018.8-32.78l93.29-53.78A24.07 24.07 0 01430.27 44l46.51 80.43a24 24 0 01-8.8 32.79L374.69 211a24.06 24.06 0 01-32.84-8.79zM127.59 480l96.14-207.99M271.8 256.02L368.55 448"
       />
     </svg>
-    <p>
-      Your {{ resource }} is Not Found. Go
+    <p v-if="resource == 'page'">
+      This {{ resource }} is Not Found. Go
       <router-link :to="{ name: 'Home' }">Home?</router-link>
+    </p>
+    <p v-else>
+      The {{ resource }} you are searching for is Not Found. Goto
+      <router-link :to="{ name: 'Home' }">Homepage?</router-link>
     </p>
   </main>
 </template>
@@ -45,6 +49,7 @@ export default {
 <style lang="scss" scoped>
 .error {
   margin-top: 2em;
+  padding: 0 1em;
   height: 50vh;
   display: grid;
   justify-content: center;
