@@ -1,13 +1,18 @@
 <template>
-  <transition-group
-    v-if="photos"
-    name="slide-fade"
-    tag="main"
-    class="photo-crib-container"
-    mode="out-in"
-  >
-    <PhotoCard v-for="photo in photos" :key="photo.id" :photoDetails="photo" />
-  </transition-group>
+  <main v-if="photos" class="photo-crib-container">
+    <!-- columns -->
+    <div class="grid-col grid-col--1"></div>
+    <div class="grid-col grid-col--2"></div>
+    <div class="grid-col grid-col--3"></div>
+    <transition-group name="slide-fade" mode="out-in">
+      <PhotoCard
+        v-for="photo in photos"
+        :key="photo.id"
+        :photoDetails="photo"
+        :class="['grid-item']"
+      />
+    </transition-group>
+  </main>
 
   <transition-group
     v-else
@@ -45,6 +50,23 @@ export default {
         console.log(err);
       });
   },
+  mounted() {
+    this.$colcade.create({
+      name: "myGridName", // name of colcade instance -> will be used as a reference for grid instance
+      el: ".photo-crib-container", // element that hosts the grid -> as mentioned in Colcade config
+      config: {
+        // native Colcade configuration -> as mentioned in Colcade config
+        columns: ".grid-col",
+        items: ".grid-item",
+      },
+    });
+  },
+  updated() {
+    this.$colcade.update("myGridName");
+  },
+  destroyed() {
+    this.$colcade.destroy("myGridName");
+  },
   watch: {
     networkStatus(newValue) {
       if (newValue) {
@@ -67,21 +89,36 @@ export default {
 @media only screen and (max-width: 768px) {
   .photo-crib-container {
     display: grid;
-    grid-row-gap: 3.5714em;
-    margin-bottom: 2em;
+    // grid-row-gap: 3.5714em;
+    // margin-bottom: 2em;
+
+    .grid-item {
+      padding-bottom: 3.5714em;
+    }
   }
 }
 
 /* Medium devices and desktops (landscape tablets, 768px and up) */
 @media only screen and (min-width: 769px) {
   .photo-crib-container {
-    display: grid;
-    grid-auto-flow: dense;
-    grid-column-gap: 5em;
-    grid-row-gap: 2.8571em;
-    grid-template-columns: repeat(auto-fit, 27em);
-    // grid-template-columns: repeat(3, 28.5em);
-    padding-bottom: 2em;
+    // display: grid;
+    // grid-auto-flow: dense;
+    // grid-column-gap: 5em;
+    grid-column-gap: 3em;
+    // grid-row-gap: 2.8571em;
+    // grid-template-columns: repeat(auto-fit, 27em);
+    // // grid-template-columns: repeat(3, 28.5em);
+    // padding-bottom: 2em;
+
+    display: flex;
+    .grid-col {
+      flex: 1;
+      padding: 2em 0em;
+    }
+
+    .grid-item {
+      padding-bottom: 2em;
+    }
   }
 }
 </style>
