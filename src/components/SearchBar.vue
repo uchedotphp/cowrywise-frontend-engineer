@@ -112,6 +112,13 @@ export default {
                   resource: "photo",
                 },
               });
+            } else {
+              this.$router.push({
+                name: "Search",
+                params: {
+                  collection: this.searchInput,
+                },
+              });
             }
           });
       }
@@ -120,9 +127,8 @@ export default {
     resetSearch() {
       this.searchStatus = "empty";
       this.searchInput = "";
-      // location.reload();
       this.$router.push({
-        name: "Home"
+        name: "Home",
       });
     },
   },

@@ -13,6 +13,13 @@ const routes = [
     component: Home,
   },
   {
+    path: "/search/:collection",
+    name: "Search",
+    props: true,
+    component: () =>
+      import(/* webpackChunkName: "search-page" */ "../views/SearchPage.vue"),
+  },
+  {
     path: "/network-error",
     name: "NetworkError",
     component: NetworkError,
@@ -35,12 +42,6 @@ const routes = [
       },
     },
   },
-  // {
-  //   path: "*",
-  //   name: "Error",
-  //   component: () =>
-  //     import(/* webpackChunkName: "not-found" */ "../views/NotFound.vue")
-  // }
 ];
 
 const router = new VueRouter({

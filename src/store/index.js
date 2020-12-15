@@ -9,6 +9,7 @@ Vue.use(VueRouter);
 export default new Vuex.Store({
   state: {
     photos: [],
+    search: [],
     networkError: false,
   },
 
@@ -17,7 +18,7 @@ export default new Vuex.Store({
       state.photos = payload;
     },
     SET_PHOTO_SEARCH(state, payload) {
-      state.photos = payload;
+      state.search = payload;
     },
     SET_NETWORK_ERROR(state, payload) {
       state.networkError = payload;
@@ -112,6 +113,7 @@ export default new Vuex.Store({
 
   getters: {
     getRandomPhotos: (state) => state.photos,
+    searchedPhotos: state => state.search,
     networkStatus: state => state.networkError
   },
 });
