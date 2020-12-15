@@ -10,7 +10,7 @@ export default new Vuex.Store({
   state: {
     photos: [],
     search: [],
-    networkError: false,
+    networkError: false
   },
 
   mutations: {
@@ -22,7 +22,7 @@ export default new Vuex.Store({
     },
     SET_NETWORK_ERROR(state, payload) {
       state.networkError = payload;
-    },
+    }
   },
 
   actions: {
@@ -42,7 +42,7 @@ export default new Vuex.Store({
             // The request was made but no response was received
             // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
             // http.ClientRequest in node.js
-            console.log("fooour", error.request);
+            console.log("four", error.request);
             commit("SET_NETWORK_ERROR", true);
           } else {
             // Something happened in setting up the request that triggered an Error
@@ -55,7 +55,6 @@ export default new Vuex.Store({
     photoSearchResult({ commit }, payload) {
       return Services.searchPhotos(payload)
         .then((response) => {
-          console.log("result", response);
           if (response.data.total) {
             commit("SET_PHOTO_SEARCH", response.data.results);
           } else {
@@ -88,7 +87,10 @@ export default new Vuex.Store({
       return Services.downloadPhoto(payload)
         .then((response) => {
           console.log("from downloading", response);
-          return response.data.url;
+          return response.data;
+      // const blob = new Blob([response.data], { type: "image/*" });
+      // const href = URL.createObjectURL(blob);
+          // return response.data.url;
         })
         .catch(function(error) {
           if (error.response) {
@@ -108,12 +110,12 @@ export default new Vuex.Store({
           }
           console.log(error.config);
         });
-    },
+    }
   },
 
   getters: {
-    getRandomPhotos: (state) => state.photos,
+    getRandomPhotos: state => state.photos,
     searchedPhotos: state => state.search,
     networkStatus: state => state.networkError
-  },
+  }
 });

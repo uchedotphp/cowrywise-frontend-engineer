@@ -69,6 +69,7 @@
 </template>
 
 <script>
+import JsFileDownloader from "js-file-downloader";
 export default {
   name: "PhotoCardComponent",
   props: {
@@ -88,14 +89,19 @@ export default {
       this.modal = false;
     },
 
-    async download(link) {
-      console.log("the link", link);
-      // return `${link.links.download}?force=true`;
-      const blob = new Blob([link.download], { type: "image/*" });
-      const href = await URL.createObjectURL(blob);
-      // return href;
-      console.log("the href", href);
-    },
+    download(link) {
+      const fileUrl = `${link.links.download}`;
+      new JsFileDownloader({
+        url: fileUrl,
+      })
+        .then(() => {
+          // Called when download ended
+          console.log('Downloaded');
+        })
+        .catch((error) => {
+          console.log('na error be this', error);
+        });
+    }
   },
 };
 </script>

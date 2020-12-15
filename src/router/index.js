@@ -10,7 +10,7 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: Home,
+    component: Home
   },
   {
     path: "/search/:collection",
@@ -22,7 +22,7 @@ const routes = [
   {
     path: "/network-error",
     name: "NetworkError",
-    component: NetworkError,
+    component: NetworkError
   },
   {
     path: "/404",
@@ -30,24 +30,24 @@ const routes = [
     component: NotFound,
     props: true,
     params: {
-      resource: "page",
-    },
+      resource: "page"
+    }
   },
   {
     path: "*",
     redirect: {
       name: "404",
       params: {
-        resource: "page",
-      },
-    },
-  },
+        resource: "page"
+      }
+    }
+  }
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes,
+  routes
 });
 
 export default router;

@@ -12,7 +12,7 @@ const apiClient = axios.create({
 
 //Request interceptor
 apiClient.interceptors.request.use(
-  (config) => {
+  config => {
     // check if there is an internet connection before every request
     if (!navigator.onLine) {
       console.log("no internet");
@@ -21,25 +21,13 @@ apiClient.interceptors.request.use(
       return config;
     }
   },
-  (error) => {
-    // Do something with request error
-    return Promise.reject(error);
-  }
+  error => Promise.reject(error)
 );
 
 // Response interceptor
 apiClient.interceptors.response.use(
-  function(response) {
-    // Any status code that lie within the range of 2xx cause this function to trigger
-    // Do something with response data
-    console.log("the response from axios", response);
-    return response;
-  },
-  function(error) {
-    // Any status codes that falls outside the range of 2xx cause this function to trigger
-    // Do something with response error
-    return Promise.reject(error);
-  }
+  response => response,
+  error => Promise.reject(error)
 );
 
 export default {
@@ -56,8 +44,9 @@ export default {
   },
 
   downloadPhoto(photoId) {
-    return apiClient.get(
-      `/photos/${photoId}/download?client_id=${process.env.VUE_APP_ACCESS_KEY}`
-    );
+    // return apiClient.get(
+    //   `/photos/${photoId}/download?client_id=${process.env.VUE_APP_ACCESS_KEY}`
+    // );
+    return axios.get("https://source.unsplash.com/" + photoId);
   },
 };

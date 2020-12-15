@@ -86,13 +86,13 @@ export default {
   props: {
     placeHolder: {
       type: String,
-      default: "Search for photo",
-    },
+      default: "Search for photo"
+    }
   },
   data() {
     return {
       searchStatus: "empty",
-      searchInput: "",
+      searchInput: ""
     };
   },
   methods: {
@@ -110,14 +110,14 @@ export default {
                 name: "404",
                 params: {
                   resource: "photo",
-                },
+                }
               });
             } else {
               this.$router.push({
                 name: "Search",
                 params: {
                   collection: this.searchInput,
-                },
+                }
               });
             }
           });
@@ -128,10 +128,10 @@ export default {
       this.searchStatus = "empty";
       this.searchInput = "";
       this.$router.push({
-        name: "Home",
+        name: "Home"
       });
-    },
-  },
+    }
+  }
 };
 </script>
 
