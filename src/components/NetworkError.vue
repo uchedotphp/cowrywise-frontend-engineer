@@ -59,16 +59,20 @@
       </svg>
     </h1>
     <h3>Seems you are experiencing some network issues</h3>
-    <!-- <p> -->
-      <button>Retry</button>
-      <!-- <router-link :to="{ name: 'Home' }">Go Home</router-link> -->
-    <!-- </p> -->
+    <button @click="fetchPhotos">Retry</button>
   </div>
 </template>
 
 <script>
 export default {
   name: "NetworkErrorComponent",
+  methods: {
+    fetchPhotos() {
+      this.$router.push({
+        name: "Home"
+      });
+    },
+  },
 };
 </script>
 
@@ -82,7 +86,7 @@ export default {
 
   h1 {
     svg {
-      height: .8em;
+      height: 0.8em;
     }
   }
 

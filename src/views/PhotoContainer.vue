@@ -73,14 +73,14 @@ export default {
 }
 
 /* Medium devices and desktops (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 769px) {
   .photo-crib-container {
     display: grid;
     grid-auto-flow: dense;
     grid-column-gap: 5em;
     grid-row-gap: 2.8571em;
-    // grid-template-columns: repeat(auto-fit, 28.5em);
-    grid-template-columns: repeat(3, 28.5em);
+    grid-template-columns: repeat(auto-fit, 27em);
+    // grid-template-columns: repeat(3, 28.5em);
     padding-bottom: 2em;
   }
 }

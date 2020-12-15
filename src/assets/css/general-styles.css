@@ -67,7 +67,7 @@ main {
 }
 
 /* Medium devices and desktops (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 769px) {
   main {
     margin: -4em auto;
     padding: 0 6.7em;

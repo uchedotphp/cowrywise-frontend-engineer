@@ -44,10 +44,7 @@
                 : ""
             }}</small>
           </div>
-          <a
-            href="https://unsplash.com/photos/51WKrfz6tLo/download"
-            @click.prevent
-          >
+          <a href="" @click.prevent="download(photoDetails)">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="ionicon"
@@ -75,7 +72,7 @@
 export default {
   name: "PhotoCardComponent",
   props: {
-    photoDetails: Object
+    photoDetails: Object,
   },
   data() {
     return {
@@ -91,9 +88,13 @@ export default {
       this.modal = false;
     },
 
-    download(link) {
+    async download(link) {
       console.log("the link", link);
-      return `${link.links.download}?force=true`;
+      // return `${link.links.download}?force=true`;
+      const blob = new Blob([link.download], { type: "image/*" });
+      const href = await URL.createObjectURL(blob);
+      // return href;
+      console.log("the href", href);
     },
   },
 };
@@ -174,7 +175,7 @@ export default {
 }
 
 /* Medium devices and desktops (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 769px) {
   .photo-container {
     position: relative;
     background: #fff;

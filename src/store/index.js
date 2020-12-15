@@ -42,6 +42,7 @@ export default new Vuex.Store({
             // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
             // http.ClientRequest in node.js
             console.log("fooour", error.request);
+            commit("SET_NETWORK_ERROR", true);
           } else {
             // Something happened in setting up the request that triggered an Error
             commit("SET_NETWORK_ERROR", true);

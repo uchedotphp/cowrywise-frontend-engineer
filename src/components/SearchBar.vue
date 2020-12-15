@@ -120,10 +120,10 @@ export default {
     resetSearch() {
       this.searchStatus = "empty";
       this.searchInput = "";
-      location.reload();
-      // this.$router.push({
-      //   name: "Home"
-      // });
+      // location.reload();
+      this.$router.push({
+        name: "Home"
+      });
     },
   },
 };
@@ -218,7 +218,7 @@ export default {
 }
 
 /* Medium devices and desktops (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 769px) {
   .box-input {
     margin: auto;
     position: relative;

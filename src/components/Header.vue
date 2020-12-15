@@ -23,7 +23,7 @@ export default {
 }
 
 /* Medium devices and desktops (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 769px) {
   .container {
     padding: 8.4em 0em;
   }
