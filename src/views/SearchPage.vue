@@ -14,15 +14,20 @@
     </transition-group>
   </main>
 
-  <transition-group
-    v-else
-    tag="main"
-    name="slide-fade"
-    class="photo-crib-container"
-    mode="out-in"
-  >
-    <LoadingShimmer v-for="n in 10" :key="n" />
-  </transition-group>
+  <main v-else class="photo-crib-container">
+    <!-- columns -->
+    <div class="grid-col grid-col--1"></div>
+    <div class="grid-col grid-col--2"></div>
+    <div class="grid-col grid-col--3"></div>
+    <transition-group name="slide-fade" mode="out-in">
+      <LoadingShimmer
+        v-for="n in 10"
+        :key="n"
+        :class="['grid-item']"
+        style="margin-bottom: 2em"
+      />
+    </transition-group>
+  </main>
 </template>
 
 <script>
